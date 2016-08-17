@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mpaster.dao.MessageMapper">
+	<resultMap id="BaseResultMap" type="com.mpaster.model.Message">
+		<id column="mesge_id" property="mesgeId" jdbcType="INTEGER" />
+		<result column="mesge_content" property="mesgeContent"
+			jdbcType="VARCHAR" />
+		<result column="mesge_author" property="mesgeAuthor" jdbcType="VARCHAR" />
+		<result column="mesge_create_time" property="mesgeCreateTime"
+			jdbcType="TIMESTAMP" />
+		<result column="mesge_delete_time" property="mesgeDeleteTime"
+			jdbcType="TIMESTAMP" />
+		<result column="mesge_del_flag" property="mesgeDelFlag"
+			jdbcType="INTEGER" />
+		<result column="mesge_contact" property="mesgeContact"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		mesge_id, mesge_content, mesge_author, mesge_create_time, mesge_delete_time,
+		mesge_del_flag,
+		mesge_contact
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_mesge
+		where mesge_id = #{mesgeId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_mesge
+		where mesge_id = #{mesgeId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.mpaster.model.Message">
+		insert into t_mesge (mesge_id, mesge_content, mesge_author,
+		mesge_create_time, mesge_delete_time, mesge_del_flag,
+		mesge_contact)
+		values (#{mesgeId,jdbcType=INTEGER}, #{mesgeContent,jdbcType=VARCHAR},
+		#{mesgeAuthor,jdbcType=VARCHAR},
+		#{mesgeCreateTime,jdbcType=TIMESTAMP},
+		#{mesgeDeleteTime,jdbcType=TIMESTAMP},
+		#{mesgeDelFlag,jdbcType=INTEGER},
+		#{mesgeContact,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.mpaster.model.Message">
+		insert into t_mesge
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="mesgeId != null">
+				mesge_id,
+			</if>
+			<if test="mesgeContent != null">
+				mesge_content,
+			</if>
+			<if test="mesgeAuthor != null">
+				mesge_author,
+			</if>
+			<if test="mesgeCreateTime != null">
+				mesge_create_time,
+			</if>
+			<if test="mesgeDeleteTime != null">
+				mesge_delete_time,
+			</if>
+			<if test="mesgeDelFlag != null">
+				mesge_del_flag,
+			</if>
+			<if test="mesgeContact != null">
+				mesge_contact,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="mesgeId != null">
+				#{mesgeId,jdbcType=INTEGER},
+			</if>
+			<if test="mesgeContent != null">
+				#{mesgeContent,jdbcType=VARCHAR},
+			</if>
+			<if test="mesgeAuthor != null">
+				#{mesgeAuthor,jdbcType=VARCHAR},
+			</if>
+			<if test="mesgeCreateTime != null">
+				#{mesgeCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="mesgeDeleteTime != null">
+				#{mesgeDeleteTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="mesgeDelFlag != null">
+				#{mesgeDelFlag,jdbcType=INTEGER},
+			</if>
+			<if test="mesgeContact != null">
+				#{mesgeContact,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.mpaster.model.Message">
+		update t_mesge
+		<set>
+			<if test="mesgeContent != null">
+				mesge_content = #{mesgeContent,jdbcType=VARCHAR},
+			</if>
+			<if test="mesgeAuthor != null">
+				mesge_author = #{mesgeAuthor,jdbcType=VARCHAR},
+			</if>
+			<if test="mesgeCreateTime != null">
+				mesge_create_time = #{mesgeCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="mesgeDeleteTime != null">
+				mesge_delete_time = #{mesgeDeleteTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="mesgeDelFlag != null">
+				mesge_del_flag = #{mesgeDelFlag,jdbcType=INTEGER},
+			</if>
+			<if test="mesgeContact != null">
+				mesge_contact = #{mesgeContact,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where mesge_id = #{mesgeId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.mpaster.model.Message">
+		update t_mesge
+		set mesge_content = #{mesgeContent,jdbcType=VARCHAR},
+		mesge_author = #{mesgeAuthor,jdbcType=VARCHAR},
+		mesge_create_time = #{mesgeCreateTime,jdbcType=TIMESTAMP},
+		mesge_delete_time = #{mesgeDeleteTime,jdbcType=TIMESTAMP},
+		mesge_del_flag = #{mesgeDelFlag,jdbcType=INTEGER},
+		mesge_contact = #{mesgeContact,jdbcType=VARCHAR}
+		where mesge_id = #{mesgeId,jdbcType=INTEGER}
+	</update>
+	
+	<select id="selectAll" resultMap="BaseResultMap">
+		select * from t_mesge where mesge_del_flag = 0 order by  mesge_create_time asc
+	</select>
+</mapper>

@@ -1,0 +1,34 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{
+	font-size:14px;
+	line-height:1.5;
+	font-family: 'Helvetica Neue', Helvetica, Arial, 'Microsoft Yahei', 'Hiragino Sans GB', 'Heiti SC', 'WenQuanYi Micro Hei', sans-serif;
+	background-color:#FFF;
+}
+body, ul, ol, dl, dt, dd, h1, h2, h3, h4, h5, h6, p{
+	margin:0;
+	padding:0;
+}
+ul, ol{
+	list-style:none;
+}
+.lft{
+	float:left;
+}
+.rgt{
+	float:right;
+}
+.clearBth{
+	clear:both;
+}
+.clearRgt{
+	clear:right;
+}
+.clearLft{
+	clear:left;
+}
+a{
+	text-decoration:none;
+}

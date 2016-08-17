@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mpaster.mybatis.dao.EstateMapper">
+    <resultMap id="BaseResultMap" type="com.mpaster.mybatis.entity.Estate">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="estateName" property="estatename" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="developer" property="developer" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, estateName, address, developer
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from t_estate
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_estate
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.mpaster.mybatis.entity.Estate">
+    insert into t_estate (id, estateName, address, 
+      developer)
+    values (#{id,jdbcType=VARCHAR}, #{estatename,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{developer,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.mpaster.mybatis.entity.Estate">
+        insert into t_estate
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="estatename != null">
+                estateName,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="developer != null">
+                developer,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="estatename != null">
+                #{estatename,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="developer != null">
+                #{developer,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.mpaster.mybatis.entity.Estate">
+        update t_estate
+        <set>
+            <if test="estatename != null">
+                estateName = #{estatename,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="developer != null">
+                developer = #{developer,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.mpaster.mybatis.entity.Estate">
+    update t_estate
+    set estateName = #{estatename,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      developer = #{developer,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mpaster.dao.UavMapper">
+	<resultMap id="BaseResultMap" type="com.mpaster.model.Uav">
+		<id column="uav_id" property="uavId" jdbcType="INTEGER" />
+		<result column="uav_title" property="uavTitle" jdbcType="VARCHAR" />
+		<result column="uav_type" property="uavType" jdbcType="VARCHAR" />
+		<result column="uav_author" property="uavAuthor" jdbcType="VARCHAR" />
+		<result column="uav_create_time" property="uavCreateTime"
+			jdbcType="TIMESTAMP" />
+		<result column="uav_delete_time" property="uavDeleteTime"
+			jdbcType="TIMESTAMP" />
+		<result column="uav_del_flag" property="uavDelFlag" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs" type="com.mpaster.model.Uav"
+		extends="BaseResultMap">
+		<result column="uav_content" property="uavContent" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		uav_id, uav_title, uav_type, uav_author, uav_create_time, uav_delete_time,
+		uav_del_flag,
+		user_id
+	</sql>
+	<sql id="Blob_Column_List">
+		uav_content
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from t_uav
+		where uav_id = #{uavId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_uav
+		where uav_id = #{uavId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.mpaster.model.Uav">
+		insert into t_uav (uav_id, uav_title, uav_type,
+		uav_author, uav_create_time, uav_delete_time,
+		uav_del_flag, user_id, uav_content
+		)
+		values (#{uavId,jdbcType=INTEGER}, #{uavTitle,jdbcType=VARCHAR},
+		#{uavType,jdbcType=VARCHAR},
+		#{uavAuthor,jdbcType=VARCHAR}, #{uavCreateTime,jdbcType=TIMESTAMP},
+		#{uavDeleteTime,jdbcType=TIMESTAMP},
+		#{uavDelFlag,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{uavContent,jdbcType=LONGVARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.mpaster.model.Uav">
+		insert into t_uav
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uavId != null">
+				uav_id,
+			</if>
+			<if test="uavTitle != null">
+				uav_title,
+			</if>
+			<if test="uavType != null">
+				uav_type,
+			</if>
+			<if test="uavAuthor != null">
+				uav_author,
+			</if>
+			<if test="uavCreateTime != null">
+				uav_create_time,
+			</if>
+			<if test="uavDeleteTime != null">
+				uav_delete_time,
+			</if>
+			<if test="uavDelFlag != null">
+				uav_del_flag,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="uavContent != null">
+				uav_content,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uavId != null">
+				#{uavId,jdbcType=INTEGER},
+			</if>
+			<if test="uavTitle != null">
+				#{uavTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="uavType != null">
+				#{uavType,jdbcType=VARCHAR},
+			</if>
+			<if test="uavAuthor != null">
+				#{uavAuthor,jdbcType=VARCHAR},
+			</if>
+			<if test="uavCreateTime != null">
+				#{uavCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="uavDeleteTime != null">
+				#{uavDeleteTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="uavDelFlag != null">
+				#{uavDelFlag,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="uavContent != null">
+				#{uavContent,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.mpaster.model.Uav">
+		update t_uav
+		<set>
+			<if test="uavTitle != null">
+				uav_title = #{uavTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="uavType != null">
+				uav_type = #{uavType,jdbcType=VARCHAR},
+			</if>
+			<if test="uavAuthor != null">
+				uav_author = #{uavAuthor,jdbcType=VARCHAR},
+			</if>
+			<if test="uavCreateTime != null">
+				uav_create_time = #{uavCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="uavDeleteTime != null">
+				uav_delete_time = #{uavDeleteTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="uavDelFlag != null">
+				uav_del_flag = #{uavDelFlag,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=INTEGER},
+			</if>
+			<if test="uavContent != null">
+				uav_content = #{uavContent,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where uav_id = #{uavId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mpaster.model.Uav">
+		update t_uav
+		set uav_title = #{uavTitle,jdbcType=VARCHAR},
+		uav_type = #{uavType,jdbcType=VARCHAR},
+		uav_author = #{uavAuthor,jdbcType=VARCHAR},
+		uav_create_time = #{uavCreateTime,jdbcType=TIMESTAMP},
+		uav_delete_time = #{uavDeleteTime,jdbcType=TIMESTAMP},
+		uav_del_flag = #{uavDelFlag,jdbcType=INTEGER},
+		user_id = #{userId,jdbcType=INTEGER},
+		uav_content = #{uavContent,jdbcType=LONGVARCHAR}
+		where uav_id = #{uavId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.mpaster.model.Uav">
+		update t_uav
+		set uav_title = #{uavTitle,jdbcType=VARCHAR},
+		uav_type = #{uavType,jdbcType=VARCHAR},
+		uav_author = #{uavAuthor,jdbcType=VARCHAR},
+		uav_create_time = #{uavCreateTime,jdbcType=TIMESTAMP},
+		uav_delete_time = #{uavDeleteTime,jdbcType=TIMESTAMP},
+		uav_del_flag = #{uavDelFlag,jdbcType=INTEGER},
+		user_id = #{userId,jdbcType=INTEGER}
+		where uav_id = #{uavId,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 自定义 sql -->
+	<select id="selectAll" resultMap="BaseResultMap">
+		select * from t_uav where uav_del_flag = 0 or uav_del_flag = 2
+	</select>
+</mapper>
